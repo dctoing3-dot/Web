@@ -4,7 +4,6 @@
   --text:#eaf0ff;
   --muted:rgba(234,240,255,.72);
   --glass:rgba(255,255,255,.08);
-  --glass2:rgba(255,255,255,.12);
   --stroke:rgba(255,255,255,.14);
   --shadow: 0 18px 60px rgba(0,0,0,.45);
 }
@@ -19,7 +18,8 @@ body{
   background:
     radial-gradient(1000px 600px at 15% 15%, rgba(140, 86, 255,.22), transparent 65%),
     radial-gradient(900px 520px at 85% 25%, rgba(0, 220, 255,.18), transparent 60%),
-    radial-gradient(1000px 700px at 50% 95%, rgba(255, 190, 60,.16), transparent 60%),
+    radial-gradient(1000px 700px at 50% 95%, rgba(255, 120, 200,.14), transparent 60%),
+    radial-gradient(900px 600px at 70% 90%, rgba(255, 200, 120,.10), transparent 62%),
     linear-gradient(180deg, var(--bg1), var(--bg2));
 }
 
@@ -40,13 +40,13 @@ body{
 }
 
 .card{
-  width:min(820px, 94vw);
+  width:min(900px, 94vw);
   border:1px solid var(--stroke);
   background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.05));
   backdrop-filter: blur(10px);
   border-radius: 22px;
   box-shadow: var(--shadow);
-  padding: 28px 22px;
+  padding: 26px 22px;
   text-align:center;
 }
 
@@ -66,20 +66,85 @@ body{
   font-size: clamp(34px, 5vw, 58px);
   letter-spacing: .3px;
   line-height: 1.05;
-  text-shadow: 0 0 22px rgba(130,190,255,.18);
+  text-shadow: 0 0 22px rgba(255,120,200,.10), 0 0 22px rgba(130,190,255,.14);
 }
 
 .subtitle{
-  margin: 10px 0 18px;
-  color: var(--muted);
+  margin: 10px 0 14px;
+  color: rgba(234,240,255,.76);
   font-size: clamp(14px, 2.3vw, 18px);
+}
+
+/* Romantic scene */
+.scene{
+  position:relative;
+  margin: 10px auto 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+  overflow:hidden;
+  padding: 14px 14px 12px;
+}
+
+.scene .glow{
+  position:absolute;
+  inset:-40px;
+  background:
+    radial-gradient(220px 160px at 35% 55%, rgba(255,120,200,.16), transparent 70%),
+    radial-gradient(240px 170px at 70% 45%, rgba(0,220,255,.14), transparent 70%);
+  filter: blur(2px);
+  pointer-events:none;
+}
+
+.couple{
+  position:relative;
+  width: min(620px, 92%);
+  height: auto;
+  display:block;
+  margin: 2px auto 6px;
+}
+
+.sway{
+  transform-origin: 280px 170px;
+  animation: sway 4.8s ease-in-out infinite;
+}
+
+.heartPulse{
+  transform-origin: 0 18px;
+  animation: pulse 1.35s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255,120,200,.22));
+}
+
+.romance-line{
+  position:relative;
+  margin: 6px auto 0;
+  max-width: 680px;
+  font-size: 13px;
+  color: rgba(234,240,255,.74);
+}
+
+.names{
+  color: rgba(255,200,120,.92);
+  font-weight: 750;
+  text-shadow: 0 0 18px rgba(255,120,200,.10);
+}
+
+@keyframes sway{
+  0%{ transform: rotate(-1.2deg) translateY(0px); }
+  50%{ transform: rotate(1.2deg) translateY(-1px); }
+  100%{ transform: rotate(-1.2deg) translateY(0px); }
+}
+
+@keyframes pulse{
+  0%, 100%{ transform: scale(1); }
+  50%{ transform: scale(1.14); }
 }
 
 .countdown{
   display:grid;
   grid-template-columns: repeat(4, minmax(0,1fr));
   gap: 12px;
-  margin: 14px auto 18px;
+  margin: 12px auto 18px;
 }
 
 .cell{
@@ -92,7 +157,7 @@ body{
 .num{
   font-variant-numeric: tabular-nums;
   font-size: clamp(26px, 4.2vw, 46px);
-  font-weight: 750;
+  font-weight: 760;
   letter-spacing: 1px;
 }
 
@@ -109,7 +174,7 @@ body{
   flex-wrap:wrap;
   gap: 10px;
   justify-content:center;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .btn{
@@ -119,7 +184,7 @@ body{
   padding: 10px 14px;
   border-radius: 14px;
   cursor:pointer;
-  font-weight: 650;
+  font-weight: 700;
   transition: transform .08s ease, background .2s ease, border-color .2s ease;
 }
 
@@ -129,15 +194,12 @@ body{
 }
 
 .btn:active{ transform: translateY(1px); }
-
-.btn-ghost{
-  background: rgba(0,0,0,.16);
-}
+.btn-ghost{ background: rgba(0,0,0,.16); }
 
 .hint{
   margin: 12px 0 0;
   font-size: 13px;
-  color: rgba(234,240,255,.68);
+  color: rgba(234,240,255,.66);
 }
 
 .footer{
@@ -152,4 +214,9 @@ body{
 
 @media (max-width: 520px){
   .countdown{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-    }
+}
+
+/* Respect reduce motion */
+@media (prefers-reduced-motion: reduce){
+  .sway, .heartPulse{ animation: none !important; }
+  }
