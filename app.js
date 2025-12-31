@@ -16,7 +16,18 @@
     burst: document.getElementById("burst"),
     toggle: document.getElementById("toggle"),
     foot: document.getElementById("foot"),
+    nameA: document.getElementById("nameA"),
+    nameB: document.getElementById("nameB"),
+    romanceLine: document.getElementById("romanceLine"),
   };
+
+  // Optional: set names from URL, example:
+  // ?a=Rina&b=Andi
+  const params = new URLSearchParams(location.search);
+  const nameA = (params.get("a") || "Aku").trim().slice(0, 24);
+  const nameB = (params.get("b") || "Kamu").trim().slice(0, 24);
+  el.nameA.textContent = nameA || "Aku";
+  el.nameB.textContent = nameB || "Kamu";
 
   // Countdown to Jan 1 next year (local time)
   const now = new Date();
@@ -49,9 +60,21 @@
       el.badge.textContent = "Selamat Tahun Baru!";
       el.title.textContent = `Happy New Year ${nextYear}`;
       el.subtitle.textContent = "Terima kasih sudah jadi rumah paling hangat—kita jalani tahun ini, bersama.";
+      el.romanceLine.innerHTML =
+        `<span class="names">${escapeHtml(nameA || "Aku")}</span> dan <span class="names">${escapeHtml(nameB || "Kamu")}</span>, ` +
+        `kita peluk tahun baru dengan lembut—tanpa terburu-buru, tanpa ragu.`;
       burstShowtime(10_000);
       heartsShowtime(10_000);
     }
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
   // Canvas FX
@@ -92,7 +115,7 @@
   }
 
   function explode(x, y, hue, power = 1) {
-    const baseCount = prefersReducedMotion ? 22 : 70;
+    const baseCount = prefersReducedMotion ? 18 : 70;
     const count = Math.floor(baseCount * clamp(power, 0.5, 2.2));
     const gravity = 0.085;
 
@@ -114,7 +137,6 @@
   }
 
   function drawHeartPath(c, size) {
-    // Draw a heart centered near (0, 8), then scale by size
     c.save();
     c.scale(size / 16, size / 16);
     c.beginPath();
@@ -136,9 +158,9 @@
       vy: rand(-1.9, -0.9),
       life: 1,
       decay: rand(0.006, 0.012) * (prefersReducedMotion ? 1.2 : 1),
-      hue: rand(325, 360),    // pink range
+      hue: rand(325, 360),
       size,
-      gravity: -0.004,        // float up slightly
+      gravity: -0.004,
       wobble: rand(0, Math.PI * 2),
     });
   }
@@ -174,8 +196,9 @@
 
       if (r.y <= r.targetY || r.vy > -2) {
         explode(r.x, r.y, r.hue, rand(1.0, 1.8));
-        // add a tiny romantic accent on explosion
-        if (!prefersReducedMotion && Math.random() < 0.6) spawnHeart(r.x, r.y + 16, 1.0);
+        if (!prefersReducedMotion && Math.random() < 0.65) {
+          spawnHeart(r.x, r.y + 16, 1.0);
+        }
         rockets.splice(i, 1);
       }
     }
@@ -200,7 +223,6 @@
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
       } else {
-        // heart
         p.wobble += 0.05;
         p.x += p.vx + Math.sin(p.wobble) * 0.18;
         p.y += p.vy;
@@ -219,14 +241,13 @@
       }
     }
 
-    // auto fireworks + soft hearts
+    // auto fireworks + gentle hearts
     if (auto) {
-      if (Math.random() < (prefersReducedMotion ? 0.012 : 0.028)) makeRocket();
+      if (Math.random() < (prefersReducedMotion ? 0.010 : 0.028)) makeRocket();
 
-      // gentle hearts floating up from bottom center
       const bottomX = window.innerWidth * 0.5;
       const bottomY = window.innerHeight * 0.86;
-      if (Math.random() < (prefersReducedMotion ? 0.010 : 0.020)) {
+      if (Math.random() < (prefersReducedMotion ? 0.008 : 0.020)) {
         spawnHeart(bottomX + rand(-60, 60), bottomY + rand(-10, 10), 1.0);
       }
     }
@@ -262,7 +283,11 @@
     if (t && t.closest && t.closest("button")) return;
 
     burstAt(e.clientX, e.clientY, prefersReducedMotion ? 0.9 : 1.3);
-    spawnHeart(e.clientX + rand(-10, 10), e.clientY + rand(10, 24), prefersReducedMotion ? 0.9 : 1.2);
+    spawnHeart(
+      e.clientX + rand(-10, 10),
+      e.clientY + rand(10, 24),
+      prefersReducedMotion ? 0.9 : 1.2
+    );
   });
 
   el.burst.addEventListener("click", () => {
@@ -283,10 +308,11 @@
   tickCountdown();
   setInterval(tickCountdown, 250);
 
-  // small opening vibe
+  // opening vibe
   if (!prefersReducedMotion) {
     makeRocket(rand(0.2, 0.8) * window.innerWidth);
     setTimeout(() => makeRocket(rand(0.2, 0.8) * window.innerWidth), 650);
   }
+
   requestAnimationFrame(draw);
 })();
