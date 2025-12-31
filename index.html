@@ -11,11 +11,93 @@
   <canvas id="fx" aria-hidden="true"></canvas>
 
   <main class="wrap">
-    <section class="card" role="group" aria-label="Kartu Tahun Baru">
-      <p class="badge" id="badge">Countdown menuju tahun baru</p>
+    <section class="card" role="group" aria-label="Kartu Tahun Baru Romantis">
+      <p class="badge" id="badge">Malam Tahun Baru berdua</p>
 
-      <h1 class="title" id="title">Tahun Baru</h1>
-      <p class="subtitle" id="subtitle">Siap menyambut momen baru.</p>
+      <h1 class="title" id="title">Menuju Tahun Baru</h1>
+      <p class="subtitle" id="subtitle">Di bawah langit yang sama, kita saling memilih—lagi dan lagi.</p>
+
+      <!-- Romantic couple scene -->
+      <div class="scene" aria-label="Ilustrasi sepasang kekasih menikmati malam tahun baru">
+        <div class="glow"></div>
+
+        <svg class="couple" viewBox="0 0 560 220" role="img" aria-label="Sepasang kekasih bergandengan tangan dengan hati berdenyut di tengah">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="rgba(140,86,255,.95)"/>
+              <stop offset="1" stop-color="rgba(0,220,255,.9)"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="rgba(255,120,200,.92)"/>
+              <stop offset="1" stop-color="rgba(255,200,120,.9)"/>
+            </linearGradient>
+            <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="2.2" result="b"/>
+              <feMerge>
+                <feMergeNode in="b"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Stars -->
+          <g opacity=".55">
+            <circle cx="70" cy="35" r="2" fill="rgba(255,255,255,.7)"/>
+            <circle cx="130" cy="60" r="1.6" fill="rgba(255,255,255,.55)"/>
+            <circle cx="470" cy="44" r="2" fill="rgba(255,255,255,.7)"/>
+            <circle cx="420" cy="76" r="1.4" fill="rgba(255,255,255,.55)"/>
+            <circle cx="280" cy="28" r="1.8" fill="rgba(255,255,255,.6)"/>
+          </g>
+
+          <!-- Ground -->
+          <path d="M30 196 C 160 160, 400 160, 530 196" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+
+          <!-- Couple group (sway) -->
+          <g class="sway" filter="url(#soft)">
+            <!-- Left person -->
+            <circle cx="215" cy="92" r="18" fill="url(#g1)"/>
+            <path d="M200 116
+                     C190 140, 194 170, 210 188
+                     C225 205, 240 205, 252 190
+                     C258 176, 256 146, 245 122
+                     C234 108, 213 106, 200 116Z"
+                  fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+            <!-- Left arm to center -->
+            <path d="M238 142 C252 150, 262 156, 272 158"
+                  fill="none" stroke="rgba(255,255,255,.26)" stroke-width="6" stroke-linecap="round"/>
+
+            <!-- Right person -->
+            <circle cx="345" cy="92" r="18" fill="url(#g2)"/>
+            <path d="M330 116
+                     C318 140, 320 170, 335 188
+                     C352 206, 368 204, 382 188
+                     C392 170, 388 140, 375 122
+                     C364 108, 344 106, 330 116Z"
+                  fill="rgba(255,255,255,.08)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+            <!-- Right arm to center -->
+            <path d="M322 142 C308 150, 298 156, 288 158"
+                  fill="none" stroke="rgba(255,255,255,.26)" stroke-width="6" stroke-linecap="round"/>
+
+            <!-- Hands -->
+            <circle cx="280" cy="158" r="7" fill="rgba(255,255,255,.22)" stroke="rgba(255,255,255,.28)" stroke-width="2"/>
+
+            <!-- Heart (pulse) -->
+            <g class="heartPulse" transform="translate(280 128)">
+              <path d="M0 14
+                       C0 4, -12 4, -12 14
+                       C-12 22, -4 26, 0 32
+                       C4 26, 12 22, 12 14
+                       C12 4, 0 4, 0 14Z"
+                    fill="rgba(255,120,200,.85)"/>
+            </g>
+          </g>
+        </svg>
+
+        <p class="romance-line">
+          <span class="names">Aku</span> dan <span class="names">Kamu</span>,
+          pelan-pelan menikmati malam—genggaman tangan, doa, dan harapan yang sama.
+        </p>
+      </div>
 
       <div class="countdown" aria-label="Hitung mundur">
         <div class="cell">
@@ -37,11 +119,11 @@
       </div>
 
       <div class="actions">
-        <button id="burst" class="btn">Ledakkan kembang api</button>
+        <button id="burst" class="btn">Kembang api untuk kita</button>
         <button id="toggle" class="btn btn-ghost" aria-pressed="true">Auto kembang api: ON</button>
       </div>
 
-      <p class="hint">Klik/tap di mana saja untuk membuat ledakan. Animasi menyesuaikan pengaturan “reduce motion”.</p>
+      <p class="hint">Klik/tap di mana saja: akan ada ledakan kembang api + hati yang melayang.</p>
     </section>
 
     <footer class="footer">
@@ -51,4 +133,4 @@
 
   <script src="./app.js" defer></script>
 </body>
-</html>
+  </html>
