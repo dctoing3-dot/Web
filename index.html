@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Happy New Year</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <main class="wrap">
+    <section class="card" role="group" aria-label="Kartu Tahun Baru">
+      <p class="badge" id="badge">Countdown menuju tahun baru</p>
+
+      <h1 class="title" id="title">Tahun Baru</h1>
+      <p class="subtitle" id="subtitle">Siap menyambut momen baru.</p>
+
+      <div class="countdown" aria-label="Hitung mundur">
+        <div class="cell">
+          <div class="num" id="d">00</div>
+          <div class="lbl">Hari</div>
+        </div>
+        <div class="cell">
+          <div class="num" id="h">00</div>
+          <div class="lbl">Jam</div>
+        </div>
+        <div class="cell">
+          <div class="num" id="m">00</div>
+          <div class="lbl">Menit</div>
+        </div>
+        <div class="cell">
+          <div class="num" id="s">00</div>
+          <div class="lbl">Detik</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="burst" class="btn">Ledakkan kembang api</button>
+        <button id="toggle" class="btn btn-ghost" aria-pressed="true">Auto kembang api: ON</button>
+      </div>
+
+      <p class="hint">Klik/tap di mana saja untuk membuat ledakan. Animasi menyesuaikan pengaturan “reduce motion”.</p>
+    </section>
+
+    <footer class="footer">
+      <span id="foot">Made for New Year</span>
+    </footer>
+  </main>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
